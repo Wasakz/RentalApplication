@@ -45,11 +45,11 @@ public class CarService {
 
     public RentalInfo rentCar(User user, String vin, LocalDate from, LocalDate to) throws Exception {
         Optional<Car> findCar = getAllCars().stream().filter(el -> el.getVin().equals(vin)).findFirst();
-        if(findCar.isEmpty()) throw new Exception();
+        if(findCar.isEmpty()) throw new Exception("no car");
 
         Optional<Rental> findRental = getAllRentals().stream().filter(el -> el.getCar().getVin().equals(vin)).findFirst();
 
-        if(findRental.isPresent()) throw new Exception();
+        if(findRental.isPresent()) throw new Exception("already rented");
         Rental newRental = new Rental(user, findCar.get());
         this.rentalStorage.addRental(newRental);
         CarType carType = newRental.getCar().getCarType();
