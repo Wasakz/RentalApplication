@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CarStorage {
@@ -17,5 +18,11 @@ public class CarStorage {
 
     public List<Car> getCarList() {
         return carList;
+    }
+
+    public Car findByVin(String vin) throws Exception {
+        Optional<Car> findCar = getCarList().stream().filter(el -> el.getVin().equals(vin)).findFirst();
+        if(findCar.isEmpty()) throw new Exception("no car");
+        return findCar.get();
     }
 }

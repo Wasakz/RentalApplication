@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class RentalStorage {
@@ -20,5 +21,11 @@ public class RentalStorage {
 
     public void addRental(Rental rental) {
         rentalList.add(rental);
+    }
+
+    public Rental findByVin(String vin) throws Exception {
+        Optional<Rental> findRental = getRentalList().stream().filter(el -> el.getCar().getVin().equals(vin)).findFirst();
+        if(findRental.isPresent()) throw new Exception("already rented");
+        return findRental.get();
     }
 }

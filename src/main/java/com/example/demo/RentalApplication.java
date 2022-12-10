@@ -14,14 +14,12 @@ public class RentalApplication {
     public RentalApplication(CarService carService) throws Exception {
         this.carService = carService;
 
-        System.out.println(carService.getAllRentals());
 
         User testUser = new User("123");
 
         System.out.println("test");
         RentalInfo rentalInfo = carService.rentCar(testUser, "123", LocalDate.of(2022, 5, 10), LocalDate.of(2022, 5, 13));
         System.out.println(rentalInfo.getPrice());
-        System.out.println(carService.getAllRentals());
     }
 
 

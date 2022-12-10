@@ -19,7 +19,7 @@ class CarServiceTest {
     @Test
     void shouldCalculateRentPrice() throws Exception {
         //given
-        User testUser = new User("123");
+        User testUser = new User("5342432");
         CarStorage carStorage = new CarStorage();
         RentalStorage rentalStorage = new RentalStorage();
         CarService carService = new CarService(carStorage, rentalStorage);

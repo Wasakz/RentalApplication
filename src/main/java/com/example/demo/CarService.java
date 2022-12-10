@@ -20,10 +20,6 @@ public class CarService {
 
     private final int BASE_PRICE = 100;
 
-    public List<Rental> getAllRentals() {
-        return rentalStorage.getRentalList();
-    }
-
     public CarService(CarStorage carStorage, RentalStorage rentalStorage) {
         this.carStorage = carStorage;
         this.rentalStorage = rentalStorage;
@@ -35,22 +31,27 @@ public class CarService {
 
     private long calculatePrice(int basePrice, LocalDate from, LocalDate to, CarType carType) {
         long daysBetween = DAYS.between(from, to); // Chrono units days beetween
-        long carMultiplier = 1;
+        long carMultiplier;
         switch (carType) {
-            case PREMIUM -> carMultiplier = 2;
-            case BLAZINGLY_FAST -> carMultiplier = 4;
+            case PREMIUM:
+                 carMultiplier = 2;
+                break;
+            case BLAZINGLY_FAST:
+                 carMultiplier = 4;
+                break;
+            default:
+                carMultiplier = 1;
         }
         return daysBetween * basePrice * carMultiplier;
     }
 
     public RentalInfo rentCar(User user, String vin, LocalDate from, LocalDate to) throws Exception {
-        Optional<Car> findCar = getAllCars().stream().filter(el -> el.getVin().equals(vin)).findFirst();
-        if(findCar.isEmpty()) throw new Exception("no car");
+        Car findCar = carStorage.findByVin(vin);
 
-        Optional<Rental> findRental = getAllRentals().stream().filter(el -> el.getCar().getVin().equals(vin)).findFirst();
-
+        Optional<Rental> findRental = rentalStorage.getRentalList().stream().filter(el -> el.getCar().getVin().equals(vin)).findFirst();
         if(findRental.isPresent()) throw new Exception("already rented");
-        Rental newRental = new Rental(user, findCar.get());
+
+        Rental newRental = new Rental(user, findCar);
         this.rentalStorage.addRental(newRental);
         CarType carType = newRental.getCar().getCarType();
         return new RentalInfo(calculatePrice(BASE_PRICE, from, to, carType), from, to);
