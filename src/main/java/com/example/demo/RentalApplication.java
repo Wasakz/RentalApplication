@@ -3,18 +3,22 @@ package com.example.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
+
 @SpringBootApplication
 public class RentalApplication {
 
     private final CarService carService;
 
-    public RentalApplication(CarService carService) {
+    public RentalApplication(CarService carService) throws Exception {
         this.carService = carService;
 
-        System.out.println(carService.getAllCars());
         System.out.println(carService.getAllRentals());
 
-        carService.rentCar(new User("123"), "111");
+        User testUser = new User("123");
+
+        carService.rentCar(testUser, "123", LocalDate.of(2022, 5, 10), LocalDate.of(2022, 5, 13));
         System.out.println(carService.getAllRentals());
     }
 

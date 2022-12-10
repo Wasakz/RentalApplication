@@ -18,7 +18,7 @@ public class RentalStorage {
         return rentalList;
     }
 
-    public void addRental(Car car, User user) {
-        rentalList.add(new Rental(user, car));
+    public void addRental(Rental rental) {
+        rentalList.add(rental);
     }
 }

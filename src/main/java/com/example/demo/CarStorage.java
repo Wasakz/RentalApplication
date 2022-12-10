@@ -12,6 +12,7 @@ public class CarStorage {
     public CarStorage() {
         carList.add(new Car("vw", "passat", "000", CarType.PREMIUM));
         carList.add(new Car("skoda", "fabia", "111", CarType.STANDARD));
+        carList.add(new Car("skoda", "octavia", "123", CarType.STANDARD));
     }
 
     public List<Car> getCarList() {

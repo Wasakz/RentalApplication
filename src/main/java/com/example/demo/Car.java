@@ -6,14 +6,11 @@ public class Car {
     private String vin;
     private CarType carType;
 
-    private boolean isRented;
-
     public Car(String make, String model, String vin, CarType carType) {
         this.make = make;
         this.model = model;
         this.vin = vin;
         this.carType = carType;
-        this.isRented = false;
     }
 
     public String getMake() {
@@ -22,14 +19,6 @@ public class Car {
 
     public void setMake(String make) {
         this.make = make;
-    }
-
-    public boolean isRented() {
-        return isRented;
-    }
-
-    public void setRented(boolean rented) {
-        isRented = rented;
     }
 
     public String getModel() {
